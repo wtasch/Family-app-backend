@@ -5,10 +5,10 @@ module.exports = (sequelize, DataTypes) => {
     body: DataTypes.STRING,
     img: DataTypes.STRING,
     userId: DataTypes.INTEGER,
-    taskId: DataTypes.INTEGER
+    eventId: DataTypes.INTEGER
   }, {});
   Post.associate = function(models) {
-    Post.belongsTo(models.User, { foreignKey: 'userId' })
+    // Post.belongsTo(models.User, { foreignKey: 'userId' })
     Post.belongsTo(models.Event, { foreignKey: 'eventId' })
   };
   return Post;

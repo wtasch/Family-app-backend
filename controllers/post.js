@@ -7,12 +7,12 @@ const constants = require('../constants');
 
 const getAllPosts = (req, res) => {
     Post.findAll({
-        attributes: ['id', 'title', 'body', 'img', 'userId'],
-        include: [
-            {
-                model: Event
-            }
-        ]
+        attributes: ['id', 'title', 'body', 'img', 'userId', 'eventId'],
+        // include: [
+        //     {
+        //         model: Event
+        //     }
+        // ]
     })
     .then(allPosts => {
         res.status(constants.SUCCESS).json(allPosts)
@@ -37,8 +37,11 @@ const getPostById = (req, res) => {
 }
 
 const createPost = (req, res) => {
-    req.body.userId = req.user.id;
-    req.body.eventId = req.params.event;
+    console.log("creating post here")
+    console.log(req.body)
+    // req.body.userId = req.user.id;
+    // req.body.eventId = req.params.event;
+    // req.body.eventId = req.params.event;
 
     Post.create(req.body)
     .then(newPost => {
@@ -48,6 +51,20 @@ const createPost = (req, res) => {
         res.status(constants.INTERNAL_SERVER_ERROR).send(`ERROR: ${err}`);
     })
 }
+
+
+// const createPost = (req, res) => {
+//     req.body.userId = req.user.id;
+//     req.body.eventId = req.params.event;
+
+//     Post.create(req.body)
+//     .then(newPost => {
+//         res.status(constants.SUCCESS).json(newPost)
+//     })
+//     .catch(err => {
+//         res.status(constants.INTERNAL_SERVER_ERROR).send(`ERROR: ${err}`);
+//     })
+// }
 
 const getPostsByEvent = (req, res) => {
     Post.findAll({
@@ -125,25 +142,42 @@ const editPost = (req, res) => {
         res.status(constants.INTERNAL_SERVER_ERROR).send(`ERROR: ${err}`);
     })
 }
-
 const deletePost = (req, res) => {
-    Post.findByPk(req.params.postId)
+    Post.findByPk(req.params.eventId)
     .then(foundPost => {
-        if(foundPost.userId === req.user.id){
+        // if(foundTask.eventId === req.user.id){
             Post.destroy({
-                where: {id: req.params.postId}
+                where: {id: req.params.eventId}
             })
             .then(() => {
                 res.status(constants.SUCCESS).send('success')
             })
-        } else {
-            res.status(constants.FORBIDDEN).send('ERROR: Post not created by User')
-        }
+        // } else {
+        //     res.status(constants.FORBIDDEN).send('ERROR: Task not created by User')
+        // }
     })
     .catch(err => {
         res.status(constants.INTERNAL_SERVER_ERROR).send(`ERROR: ${err}`);
     })
 }
+// const deletePost = (req, res) => {
+//     Post.findByPk(req.params.postId)
+//     .then(foundPost => {
+//         if(foundPost.userId === req.user.id){
+//             Post.destroy({
+//                 where: {id: req.params.postId}
+//             })
+//             .then(() => {
+//                 res.status(constants.SUCCESS).send('success')
+//             })
+//         } else {
+//             res.status(constants.FORBIDDEN).send('ERROR: Post not created by User')
+//         }
+//     })
+//     .catch(err => {
+//         res.status(constants.INTERNAL_SERVER_ERROR).send(`ERROR: ${err}`);
+//     })
+// }
 
 module.exports = {
     createPost,
