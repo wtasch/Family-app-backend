@@ -106,7 +106,7 @@ const getPostsByUser = (req, res) => {
 const editPost = (req, res) => {
     Post.update(req.body, {
         where: {
-            id: req.params.postId
+            id: req.params.eventId
         },
         returning: true
     })
@@ -114,17 +114,17 @@ const editPost = (req, res) => {
         if(updatedPost[0] === 0){
             res.status(constants.BAD_REQUEST).send('ERROR: Incorrect Post Id')
         }else{
-            Post.findByPk(req.params.postId, {
-                include: [
-                    {
-                        model: Event,
-                        attributes: ['name', 'workOn', 'img', 'location']
-                    },
-                    {
-                        model: User,
-                        attributes: ['id', 'username']
-                    }
-                ]
+            Post.findByPk(req.params.eventId, {
+                // include: [
+                //     {
+                //         model: Event,
+                //         attributes: ['name', 'workOn', 'img', 'location']
+                //     },
+                //     {
+                //         model: User,
+                //         attributes: ['id', 'username']
+                //     }
+                // ]
             })
             .then(foundPost => {
                 if(foundPost === null){

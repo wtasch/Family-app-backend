@@ -8,7 +8,7 @@ router.get('/user', ctrl.post.getPostsByUser);
 router.get('/:postId', ctrl.post.getPostById);
 router.get('/:event/all', ctrl.post.getPostsByEvent);
 router.delete('/:eventId', ctrl.post.deletePost);
-router.put('/:postId', ctrl.post.editPost);
+router.put('/:eventId', ctrl.post.editPost);
 
 module.exports = router;
 
