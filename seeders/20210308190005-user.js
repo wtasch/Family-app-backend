@@ -26,7 +26,7 @@ module.exports = {
           password: "Nevery",
           email: "wtasch@aol.com",
           name: "tory bug",
-          img: "https://i.imgur.com/Wx6Tsqy.jpg",
+          img: "https://i.imgur.com/3h56PyX.jpg",
           age: 3,
           isActive: true,
           },

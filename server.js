@@ -38,7 +38,16 @@ const verifyToken = (req, res, next) => {
 }
 
 app.use('/auth', routes.auth);
+
 app.use('/event', routes.event);
+app.use('/event/all', routes.event);
+
+
+app.use('/part/all', routes.event);
+
+// app.use('/task/all', routes.task);
+app.use('/part/event', routes.task);
+// app.use('/shop/event', routes.shop);
 app.use('/task/all', routes.task);
 app.use('/task/event', routes.task);
 app.use('/post/all', routes.post);
@@ -50,7 +59,8 @@ app.use('/auth/verify', verifyToken, routes.auth);
 app.use('/user', routes.user);
 app.use('/post', routes.post);
 app.use('/task', routes.task);
-
+app.use('/part', routes.part);
+app.use('/shop', routes.shop);
 
 app.listen(process.env.PORT, () => {
     console.log(`I am listening on port ${process.env.PORT}`);

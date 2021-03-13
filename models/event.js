@@ -4,13 +4,14 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     img: DataTypes.STRING,
     workOn: DataTypes.STRING,
-    location: DataTypes.STRING
+    location: DataTypes.STRING,
+    eventId: DataTypes.INTEGER,
   }, {});
-  Event.associate = function(models) {
-    Event.hasMany(models.User, { foreignKey: 'age' })
-    Event.hasMany(models.Post, { foreignKey: 'eventId' })//was c
-    Event.hasMany(models.Task, { foreignKey: 'eventId' })//was c
-  };
+  // Event.associate = function(models) {
+  //   // Event.hasMany(models.User, { foreignKey: 'age' })
+  //   // Event.hasMany(models.Post, { foreignKey: 'eventId' })//was c
+  //   Event.hasMany(models.Task, { foreignKey: 'eventId' })//was c
+  // };
   return Event;
 };
 
