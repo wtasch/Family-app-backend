@@ -31,16 +31,16 @@ const getProfile = (req, res) => {
         sort = 'ASC';
     
     User.findByPk(req.user.id, {
-        include: [
-            {
-                model: Event,
-                attributes: ['id', 'name', 'workOn', 'img', 'location']
-            },
-            {
-                model: Post,
-                attributes: ['id', 'title', 'img']
-            }
-        ],
+        // include: [
+        //     {
+        //         model: Event,
+        //         attributes: ['id', 'name', 'workOn', 'img', 'location']
+        //     },
+        //     {
+        //         model: Post,
+        //         attributes: ['id', 'title', 'img']
+        //     }
+        // ],
         attributes: ['id', 'name', 'username', 'img', 'createdAt', 'email'],
         order: [
             [{model: Post}, 'createdAt', sort]

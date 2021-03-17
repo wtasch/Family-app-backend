@@ -5,6 +5,8 @@ module.exports = {
     post: require('./post'),
     task: require('./task'),
     part: require('./part'),
-    shop: require('./shop')
+    shop: require('./shop'),
+    // contact: require('./contact')
+
 }
 

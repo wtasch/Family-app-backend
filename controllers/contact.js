@@ -1,161 +1,78 @@
-const Post = require('../models').Post;
-const Event = require('../models').Event;
-const Contact = require('../models').Contact;
 
 
-const constants = require('../constants');
 
-const getAllEvents = (req, res) => {
-    // console.log("i got to controller")
-    Event.findAll({
-        attributes: ['id', 'name', 'img', 'workOn', 'location', 'eventId'],
-        // include: [
-        //     {
-        //         model: Event
-        //     }
-        // ]
-    })
-    .then(allEvents => {
-        res.status(constants.SUCCESS).json(allEvents)
-    })
-    .catch(err => {
-        res.status(constants.INTERNAL_SERVER_ERROR).send(`ERROR: ${err}`);
-    })
-}
 
-const getEventById = (req, res) => {
-    Event.findByPk(req.params.eventId)
-    .then(foundEvent => {
-        if(foundEvent === null){
-            res.status(constants.BAD_REQUEST).send('ERROR: Incorrect Event  Id')
-        }else{
-            res.status(constants.SUCCESS).json(foundEvent)
-        }
-    })
-    .catch(err => {
-        res.status(constants.INTERNAL_SERVER_ERROR).send(`ERROR: ${err}`);
-    })
-}
+const express = require('express');
+const bodyParser = require('body-parser');
 
-const createEvent = (req, res) => {
-    console.log("creating Event")
-    console.log(req.body)
-    // req.body.userId = req.user.id;
-    req.body.eventId = req.params.event;
-    // req.body.eventId = req.params.event;
+const cors = require('cors');
 
-    Event.create(req.body)
-    .then(newEvent => {
-        res.status(constants.SUCCESS).json(newEvent)
-    })
-    .catch(err => {
-        res.status(constants.INTERNAL_SERVER_ERROR).send(`ERROR: ${err}`);
-    })
-}
+const router = express.Router();
+const nodemailer = require("nodemailer");
 
-const getEventsByEvent = (req, res) => {
-    Event.findAll({
-        where: {
-            eventId: req.params.event
-        },
-        attributes: ['id', 'name', 'img', 'workOn', 'location', 'eventId'],
-    })
-    .then(allEvents => {
-        if(allEvents.length > 0){
-            res.status(constants.SUCCESS).json(allEvents);
-        }else{
-            res.status(constants.BAD_REQUEST).send(`ERROR: Incorrect event Id`);
-        }
-    })
-    .catch(err => {
-        res.status(constants.INTERNAL_SERVER_ERROR).send(`ERROR: ${err}`);
-    })
-}
 
-const getEventsByUser = (req, res) => {
-    Event.findAll({
-        where: {
-            userId: req.user.id
-        },
-        attributes: ['desc'],
-        include: [{
-            model: Event
-        }]
-    })
-    .then(allEvents => {
-        res.status(constants.SUCCESS).json(allEvents)
-    })
-    .catch(err => {
-        res.status(constants.INTERNAL_SERVER_ERROR).send(`ERROR: ${err}`);
-    })
-}
+const app = express();
+const routes = require('./routes');
+const constants = require('./constants');
 
-const editEvent = (req, res) => {
-    Event.update(req.body, {
-        where: {
-            id: req.params.eventId
-        },
-        returning: true
-    })
-    .then(updatedEvent => {
-        if(updatedEvent[0] === 0){
-            res.status(constants.BAD_REQUEST).send('ERROR: Incorrect Event Id')
-        }else{
-            Event.findByPk(req.params.eventId, {
-                // include: [
-                //     {
-                //         model: Event,
-                //         attributes: ['name', 'workOn', 'img', 'location', 'eventId']
-                //     },
-                //     {
-                //         model: User,
-                //         attributes: ['id', 'username']
-                //     }
-                // ]
-            })
-            .then(foundEvent => {
-                if(foundEvent === null){
-                    res.status(constants.BAD_REQUEST).send('ERROR: Incorrect Event Id')
-                }else{
-                    res.status(constants.SUCCESS).json(foundEvent)
-                }
-            })
-            .catch(err => {
-                res.status(constants.INTERNAL_SERVER_ERROR).send(`ERROR: ${err}`);
-            })
-        }
-    })
-    .catch(err => {
-        res.status(constants.INTERNAL_SERVER_ERROR).send(`ERROR: ${err}`);
-    })
-}
+const corsOptions = {
+    origin: ['http://localhost:3000'],
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true, 
+    optionsSuccessStatus: 200 
+  }
 
-const deleteEvent = (req, res) => {
-    Event.findByPk(req.params.eventId)
-    .then(foundEvent => {
-        // if(foundEvent.eventId === req.user.id){
-            Event.destroy({
-                where: {id: req.params.eventId}
-            })
-            .then(() => {
-                res.status(constants.SUCCESS).send('success')
-            })
-        // } else {
-        //     res.status(constants.FORBIDDEN).send('ERROR: Event not created by User')
-        // }
-    })
-    .catch(err => {
-        res.status(constants.INTERNAL_SERVER_ERROR).send(`ERROR: ${err}`);
-    })
-}
+app.use(express.json());
+app.use("/", router);
+
+
+app.use(cors(corsOptions))
+app.use(bodyParser.json());
+
+//add for cf
+
+const contactEmail = nodemailer.createTransport({
+    host: "smtp.aol.com",
+    port: 587,
+    auth: {
+      user: "wtasch",
+      pass: "Rocketman69",
+    },
+  });
+  
+  contactEmail.verify((error) => {
+    if (error) {
+      console.log(error);
+    } else {
+      console.log("Ready to Send");
+    }
+  });
+
+    const SendMail = (req, res) => {console.log("test cnt")
+    const name = req.body.name;
+    const email = req.body.email;console.log(email)
+    const message = req.body.message; 
+    const mail = {
+        
+      from: name,
+      to: "wtasch@aol.com",
+      subject: "Contact Form Message",
+      html: `<p>Name: ${name}</p><p>Email: ${email}</p><p>Message: ${message}</p>`,
+    };
+    console.log(mail)
+    contactEmail.sendMail(mail, (error) => {
+      if (error) {
+        res.json({ status: "failed" });
+      } else {
+        res.json({ status: "sent" });
+      }
+    });
+  };
+
+
+
+
 
 module.exports = {
-    createEvent,
-    getEventsByEvent,
-    getEventsByUser,
-    getAllEvents,
-    deleteEvent,
-    editEvent,
-    getEventById
+SendMail
 }
-

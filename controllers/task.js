@@ -90,39 +90,17 @@ const getTasksByUser = (req, res) => {
 }
 
 const editTask = (req, res) => {
+    console.log("THIS IS A TEST ")
     Task.update(req.body, {
         where: {
-            id: req.params.eventId
+            id: req.params.taskId
         },
         returning: true
     })
     .then(updatedTask => {
-        if(updatedTask[0] === 0){
-            res.status(constants.BAD_REQUEST).send('ERROR: Incorrect Task Id')
-        }else{
-            Task.findByPk(req.params.eventId, {
-                include: [
-                    {
-                        model: Event,
-                        attributes: ['name', 'workOn', 'img', 'location']
-                    },
-                    {
-                        model: User,
-                        attributes: ['id', 'username']
-                    }
-                ]
-            })
-            .then(foundTask => {
-                if(foundTask === null){
-                    res.status(constants.BAD_REQUEST).send('ERROR: Incorrect Task Id')
-                }else{
-                    res.status(constants.SUCCESS).json(foundTask)
-                }
-            })
-            .catch(err => {
-                res.status(constants.INTERNAL_SERVER_ERROR).send(`ERROR: ${err}`);
-            })
-        }
+        console.log("THIS IS A TEST UPDATE TASK ")
+       
+        
     })
     .catch(err => {
         res.status(constants.INTERNAL_SERVER_ERROR).send(`ERROR: ${err}`);
