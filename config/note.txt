@@ -5,3 +5,22 @@
     "operatorsAliases": false
 
   },
+
+
+  {
+  "development": {
+    "database": "family9",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "production": {
+    "use_env_variable": "DATABASE_URL",
+    "dialectOptions": {
+        "ssl": {
+          "require": true,
+          "rejectUnauthorized": false
+        }
+    }
+  }
+}
