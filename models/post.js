@@ -1,4 +1,7 @@
 'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   const Post = sequelize.define('Post', {
     title: DataTypes.STRING,
@@ -6,7 +9,9 @@ module.exports = (sequelize, DataTypes) => {
     img: DataTypes.STRING,
     userId: DataTypes.INTEGER,
     eventId: DataTypes.INTEGER
-  }, {});
+  }, {
+    sequelize,
+  });
   Post.associate = function(models) {
     // Post.belongsTo(models.User, { foreignKey: 'userId' })
     Post.belongsTo(models.Event, { foreignKey: 'eventId' })

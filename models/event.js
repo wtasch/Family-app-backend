@@ -1,4 +1,7 @@
 'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   const Event = sequelize.define('Event', {
     name: DataTypes.STRING,
@@ -6,7 +9,9 @@ module.exports = (sequelize, DataTypes) => {
     workOn: DataTypes.STRING,
     location: DataTypes.STRING,
     eventId: DataTypes.INTEGER,
-  }, {});
+  }, {
+    sequelize,
+  });
   // Event.associate = function(models) {
   //   // Event.hasMany(models.User, { foreignKey: 'age' })
   //   // Event.hasMany(models.Post, { foreignKey: 'eventId' })//was c

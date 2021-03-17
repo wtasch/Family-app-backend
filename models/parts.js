@@ -1,4 +1,7 @@
 'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   const Part = sequelize.define('Part', {
     eventId: DataTypes.INTEGER,
@@ -7,7 +10,9 @@ module.exports = (sequelize, DataTypes) => {
     lastName: DataTypes.STRING,
     image: DataTypes.STRING,
     completed: DataTypes.STRING
-  }, {});
+  }, {
+    sequelize,
+  });
   Part.associate = function(models) {
     // Task.belongsTo(models.User, { foreignKey: 'userId' })
     Part.belongsTo(models.Event, { foreignKey: 'eventId' })
