@@ -1,4 +1,7 @@
-
+const Post = require('../models').Post;
+const Event = require('../models').Event;
+const User = require('../models').User;
+// const Contact = require('../models').Contact;
 
 
 
@@ -12,8 +15,8 @@ const nodemailer = require("nodemailer");
 
 
 const app = express();
-const routes = require('./routes');
-const constants = require('./constants');
+// const routes = require('./routes');
+// const constants = require('./constants');
 
 const corsOptions = {
     origin: ['http://localhost:3000'],
@@ -29,13 +32,13 @@ app.use("/", router);
 app.use(cors(corsOptions))
 app.use(bodyParser.json());
 
-//add for cf
+//add for cf or 465
 
 const contactEmail = nodemailer.createTransport({
     host: "smtp.aol.com",
     port: 587,
     auth: {
-      user: "wtasch",
+      user: "wtasch@aol.com",
       pass: "Rocketman69",
     },
   });
@@ -48,7 +51,7 @@ const contactEmail = nodemailer.createTransport({
     }
   });
 
-    const SendMail = (req, res) => {console.log("test cnt")
+    const SendMail = (req, res) => {console.log("test contact")
     const name = req.body.name;
     const email = req.body.email;console.log(email)
     const message = req.body.message; 

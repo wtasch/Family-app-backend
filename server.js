@@ -110,6 +110,7 @@ app.use('/post', routes.post);
 app.use('/task', routes.task);
 app.use('/part', routes.part);
 app.use('/shop', routes.shop);
+// app.use('/contact', routes.contact);
 
 app.listen(process.env.PORT, () => {
     console.log(`I am listening on port ${process.env.PORT}`);
