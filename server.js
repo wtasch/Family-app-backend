@@ -9,12 +9,12 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors');
 //added for contact form
 const router = express.Router();
-const nodemailer = require("nodemailer");
+// const nodemailer = require("nodemailer");
 
 
 const app = express();
 const routes = require('./routes');
-const constants = require('./constants');
+// const constants = require('./constants');
 
 const corsOptions = {
     origin: ['http://localhost:3000'],
@@ -23,8 +23,8 @@ const corsOptions = {
     optionsSuccessStatus: 200 
   }
 //add for cf
-app.use(express.json());
-app.use("/", router);
+// app.use(express.json());
+// app.use("/", router);
 
 
 app.use(cors(corsOptions))
