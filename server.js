@@ -14,7 +14,7 @@ const router = express.Router();
 
 const app = express();
 const routes = require('./routes');
-// const constants = require('./constants');
+const constants = require('./constants');
 
 const corsOptions = {
     origin: ['http://localhost:3000'],
@@ -87,28 +87,31 @@ const verifyToken = (req, res, next) => {
 }
 
 app.use('/auth', routes.auth);
+app.use('/auth/verify', verifyToken, routes.auth);
 
 app.use('/event', routes.event);
 app.use('/event/all', routes.event);
 
 
 app.use('/part/all', routes.event);
-
+app.use('/part', routes.part);
 // app.use('/task/all', routes.task);
-app.use('/part/event', routes.task);
+//11 app.use('/part/event', routes.task);
 // app.use('/shop/event', routes.shop);
 app.use('/task/all', routes.task);
-app.use('/task/event', routes.task);
+app.use('/task', routes.task);
+
+// 11app.use('/task/event', routes.task);
 app.use('/post/all', routes.post);
-app.use('/post/event', routes.post);
-app.use('/auth/verify', verifyToken, routes.auth);
+// 11app.use('/post/event', routes.post);
+app.use('/post', routes.post);
 // app.use('/user', verifyToken, routes.user);
 // app.use('/post', verifyToken, routes.post);
 // app.use('/task', verifyToken, routes.task);
 app.use('/user', routes.user);
-app.use('/post', routes.post);
-app.use('/task', routes.task);
-app.use('/part', routes.part);
+
+
+
 app.use('/shop', routes.shop);
 // app.use('/contact', routes.contact);
 

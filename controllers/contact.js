@@ -26,7 +26,7 @@ const corsOptions = {
   }
 
 app.use(express.json());
-// app.use("/", router);
+app.use("/", router);
 
 
 app.use(cors(corsOptions))
@@ -38,7 +38,7 @@ const contactEmail = nodemailer.createTransport({
     host: "smtp.aol.com",
     port: 587,
     auth: {
-      user: "wtasch@aol.com",
+      user: "wtasch",
       pass: "Rocketman69",
     },
   });
