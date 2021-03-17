@@ -6,7 +6,7 @@ module.exports = {
     task: require('./task'),
     part: require('./part'),
     shop: require('./shop'),
-    contact: require('./contact')
+    // contact: require('./contact')
 
 }
 
