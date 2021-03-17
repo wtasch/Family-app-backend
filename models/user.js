@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     isActive: DataTypes.BOOLEAN
   }, {
     sequelize,
+    modelName: 'User',
   });
   User.associate = function(models) {
      User.belongsTo(models.Event, { foreignKey: 'age' })

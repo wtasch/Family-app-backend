@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     eventId: DataTypes.INTEGER
   }, {
     sequelize,
+    modelName: 'Post',
   });
   Post.associate = function(models) {
     // Post.belongsTo(models.User, { foreignKey: 'userId' })

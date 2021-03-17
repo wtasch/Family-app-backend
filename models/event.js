@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     eventId: DataTypes.INTEGER,
   }, {
     sequelize,
+    modelName: 'Event',
   });
   // Event.associate = function(models) {
   //   // Event.hasMany(models.User, { foreignKey: 'age' })

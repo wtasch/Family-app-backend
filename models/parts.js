@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     completed: DataTypes.STRING
   }, {
     sequelize,
+    modelName: 'Part',
   });
   Part.associate = function(models) {
     // Task.belongsTo(models.User, { foreignKey: 'userId' })
