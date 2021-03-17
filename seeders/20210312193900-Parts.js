@@ -6,7 +6,7 @@ module.exports = {
       {
         eventId :1,
       desc: "radial saw",
-      firstName: "barn",
+      firstName: "Bill",
       lastName: "cabin",
       image: "https://i.imgur.com/Wx6Tsqy.jpg",
       completed: "no"
@@ -14,7 +14,7 @@ module.exports = {
       {
         eventId:2,
         desc: "framing air gun",
-        firstName: "barn",
+        firstName: "Bill",
         lastName: "cabin",
         image: "https://i.imgur.com/3h56PyX.jpg",
         completed: "no"
@@ -22,7 +22,7 @@ module.exports = {
       {
         eventId:3,
         desc: "tools",
-        firstName: "barn",
+        firstName: "Bill",
         lastName: "farm",
         image: "https://i.imgur.com/SN2XGft.jpg",
         completed: "yes"

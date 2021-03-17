@@ -10,7 +10,7 @@ module.exports = {
       },
       {
         name: "Bill in Chicago",
-        img: "https://i.imgur.com/DBucM2O.jpg",
+        img: "https://i.imgur.com/UlmpeZI.jpg",
         workOn: "4/25/21",
         location: "Chicago", 
         eventId :2,

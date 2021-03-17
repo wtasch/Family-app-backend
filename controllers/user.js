@@ -6,9 +6,25 @@ const User = require('../models').User;
 const Event = require('../models').Event;
 const Post = require('../models').Post;
 const Task = require('../models').Task;
+const Signup = require('../models').Signup;
 
 const constants = require('../constants');
-
+const getAllSignups = (req, res) => {
+    Signup.findAll({
+        attributes: ['id', 'username', 'password', 'name', 'email', 'img', 'isActive'],
+        // include: [
+        //     {
+        //         model: Event
+        //     }
+        // ]
+    })
+    .then(allSignups => {
+        res.status(constants.SUCCESS).json(allTasks)
+    })
+    .catch(err => {
+        res.status(constants.INTERNAL_SERVER_ERROR).send(`ERROR: ${err}`);
+    })
+}
 const getProfile = (req, res) => {
     let sort = 'DESC';
     if(req.query.sorted === 'asc')
@@ -47,12 +63,12 @@ const editProfile = (req, res) => {
     })
     .then(() => {
         User.findByPk(req.user.id, {
-            include: [
-                {
-                    model: Event,
-                    attributes: ['id', 'name', 'workOn', 'img', 'location']
-                }
-            ],
+            // include: [
+            //     {
+            //         model: Event,
+            //         attributes: ['id', 'name', 'workOn', 'img', 'location']
+            //     }
+            // ],
             attributes: ['id', 'name', 'username', 'img', 'createdAt', 'email']
         })
         .then(userProfile => {
@@ -66,5 +82,6 @@ const editProfile = (req, res) => {
 
 module.exports = {
     getProfile,
-    editProfile
+    editProfile,
+    getAllSignups
 }

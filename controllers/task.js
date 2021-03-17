@@ -40,7 +40,7 @@ const createTask = (req, res) => {
     console.log("creating task")
     console.log(req.body)
     // req.body.userId = req.user.id;
-    req.body.eventId = req.params.event;
+    // req.body.eventId = req.params.event;
     // req.body.eventId = req.params.event;
 
     Task.create(req.body)
