@@ -45,9 +45,9 @@ db.Sequelize = Sequelize;
 const sequelizeOptions = { logging: console.log, };
 
 // Removes all tables and recreates them (only available if env is not in production)
-if (DB_FORCE_RESTART === 'true' && process.env.ENV !== 'production') {
-sequelizeOptions.force = true;
-}
+// if (DB_FORCE_RESTART === 'true' && process.env.ENV !== 'production') {
+// sequelizeOptions.force = true;
+// }
  
 sequelize.sync(sequelizeOptions)
 .catch((err) => {
