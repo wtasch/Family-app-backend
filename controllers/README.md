@@ -118,7 +118,7 @@ Typical API call to retreive backend data:
 #### User stories:
 * As a Parent, I want a fun way to assign task and chores to my Kids.
 * With many projects to completed, need a way of tracking.
-* With several cars, tractors, mowers and farm equipemnt, need way of recording repiar parts and also a shopping list.
+* With several cars, tractors, mowers and farm equipemnt, need way of    recording repiar parts and also a shopping list.
 * As a kid, need fun way to post comments and pictures
 
 ---
