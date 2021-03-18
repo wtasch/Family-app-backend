@@ -13,7 +13,15 @@ dotenv.config()
 const { DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_FORCE_RESTART } = process.env;
 
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, config);
+let sequelize;
 
+if (process.env.NODE_ENV === "production") {
+    sequelize = new Sequelize(process.env.DATABASE_URL, config);
+  } else {
+    const { DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_FORCE_RESTART } = process.env;
+    sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, config);
+  }
+  
 fs
   .readdirSync(__dirname)
   .filter((file) => {
